@@ -9,5 +9,5 @@ import java.util.Optional;
 @Repository
 public interface UsuarioRepository extends JpaRepository<Usuario,Long> {
     // Buscar un usuario por su correo para validar el login
-    Usuario finByCorreo(String correo);// Devuelve el usuario directo o null si no lo encuentra
+    Usuario findByEmail(String email);// Devuelve el usuario directo o null si no lo encuentra
 }

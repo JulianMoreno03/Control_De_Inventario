@@ -26,7 +26,7 @@ public class UsuarioController {
     @PostMapping("/login")
     private ResponseEntity<?> login(@RequestBody Usuario loginRequest){
         //Buscamos el usuario por su correo
-        Usuario usuario = usuarioRepository.finByCorreo(loginRequest.getEmail());
+        Usuario usuario = usuarioRepository.findByEmail(loginRequest.getEmail());
 
         if(usuario !=null && usuario.getPassword().equals(loginRequest.getPassword())){
             return ResponseEntity.ok(usuario);
