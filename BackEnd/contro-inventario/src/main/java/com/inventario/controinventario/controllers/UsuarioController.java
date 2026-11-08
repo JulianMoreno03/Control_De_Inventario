@@ -3,10 +3,8 @@ package com.inventario.controinventario.controllers;
 import com.inventario.controinventario.models.Usuario;
 import com.inventario.controinventario.repository.UsuarioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -22,5 +20,19 @@ public class UsuarioController {
     @GetMapping
     public List<Usuario> ListarUsuarios(){
         return usuarioRepository.findAll();
+    }
+
+    // Metodo para validad el login
+    @PostMapping("/login")
+    private ResponseEntity<?> login(@RequestBody Usuario loginRequest){
+        //Buscamos el usuario por su correo
+        Usuario usuario = usuarioRepository.finByCorreo(loginRequest.getEmail());
+
+        if(usuario !=null && usuario.getPassword().equals(loginRequest.getPassword())){
+            return ResponseEntity.ok(usuario);
+        }
+
+        return ResponseEntity.status(401).body("Correo o contraseña incorrectos");
+
     }
 }
