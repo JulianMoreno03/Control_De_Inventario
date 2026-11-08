@@ -50,33 +50,19 @@ export default function FormularioAuth() {
       </section>
       )}
 
-
+      {/**/}
       {/* Este input de nombre solo aparece si 'esLogin' es falso */}
      {!esLogin && (
-        <section>
+       <section className='border-4'>
           
           {/* PASO 1 Se muestra solo si 'nextData' es FALSO */}
           {!nextData && (
             <article>
-              <input
-                type="text"
-                placeholder="Nombre"
-                className="w-full px-4 py-3 rounded-full bg-slate-50 border border-slate-200 text-sm focus:outline-none focus:ring-2 focus:ring-teal-400"
-              />
-
-               <input
-                type="text"
-                placeholder="Apellido"
-                className="w-full px-4 py-3 rounded-full bg-slate-50 border border-slate-200 text-sm focus:outline-none focus:ring-2 focus:ring-teal-400"
-              />
-
-               <input
-                type=""
-                placeholder="Nombre"
-                className="w-full px-4 py-3 rounded-full bg-slate-50 border border-slate-200 text-sm focus:outline-none focus:ring-2 focus:ring-teal-400"
-              />
-
-              
+         
+         <InputCustom type="text" placeholder="Nombre"></InputCustom>
+         <InputCustom type="text" placeholder="Apellido"></InputCustom>
+         <InputCustom type="" placeholder="Correo"></InputCustom>
+            
 
               <button 
                 onClick={() => setNextData(true)}
@@ -126,6 +112,7 @@ export default function FormularioAuth() {
 
         </section>
       )}
+
       </section>
   );
 }
