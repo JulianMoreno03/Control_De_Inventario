@@ -16,12 +16,7 @@ export default function FormularioAuth() {
         >
           Ingresar
         </button>
-        <button 
-          onClick={() => setEsLogin(false)}
-          className={`font-bold ${!esLogin ? 'underline text-cyan-600 text-2xl duration-300 ' : 'text-slate-400'}`}
-        >
-          Registrarse
-        </button>
+       
       </div>
 
 
@@ -50,20 +45,18 @@ export default function FormularioAuth() {
       </section>
       )}
 
-      {/**/}
-      {/* Este input de nombre solo aparece si 'esLogin' es falso */}
-     {!esLogin && (
-       <section className='border-4'>
-          
-          {/* PASO 1 Se muestra solo si 'nextData' es FALSO */}
+      {/* ========================================================== */}
+     
+          {/* Este input de nombre solo aparece si 'esLogin' es falso */}
+    {/* Todo este bloque de registro queda desactivado temporalmente */}
+      {false && (
+        <section className='border-4'>
           {!nextData && (
             <article>
-         
-         <InputCustom type="text" placeholder="Nombre"></InputCustom>
-         <InputCustom type="text" placeholder="Apellido"></InputCustom>
-         <InputCustom type="" placeholder="Correo"></InputCustom>
-            
-
+              <InputCustom type="text" placeholder="Nombre"></InputCustom>
+              <InputCustom type="text" placeholder="Apellido"></InputCustom>
+              <InputCustom type="" placeholder="Correo"></InputCustom>
+              
               <button 
                 onClick={() => setNextData(true)}
                 className={`font-bold underline text-cyan-600 text-2xl duration-300 block mx-auto mt-4`}
@@ -73,46 +66,35 @@ export default function FormularioAuth() {
             </article>
           )}
 
-          {/* PASO 2 Se muestra solo cuando 'nextData' pasa a VERDADERO es decir oculta el paso 1 */}
           {nextData && (
             <section>
-            <article>
-              <input
-                type="text"
-                placeholder="Telefono"
-                className="w-full px-4 py-3 rounded-full bg-slate-50 border border-slate-200 text-sm focus:outline-none focus:ring-2 focus:ring-teal-400"
-              />
-            </article>
+              <article>
+                <input
+                  type="text"
+                  placeholder="Telefono"
+                  className="w-full px-4 py-3 rounded-full bg-slate-50 border border-slate-200 text-sm focus:outline-none focus:ring-2 focus:ring-teal-400"
+                />
+              </article>
 
-            {/*botones volver y llenar formulario*/}
-            <article className='flex justify-center items-center'> 
+              <article className='flex justify-center items-center'> 
+                <button 
+                  onClick={() => setNextData(false)}
+                  className={`font-bold underline text-cyan-600 text-2xl duration-300 block mx-auto mt-4`}
+                >
+                  Volver
+                </button>
 
                 <button 
-                onClick={() => setNextData(false)}
-                className={`font-bold underline text-cyan-600 text-2xl duration-300 block mx-auto mt-4`}
-              >
-                Volver
-              </button>
-
-
-                <button 
-              
-                className={`font-bold underline text-cyan-600 text-2xl duration-300 block mx-auto mt-4`}
-              >
-                Crear Cuenta
-              </button>
-
-            </article>
-            
-
+                  className={`font-bold underline text-cyan-600 text-2xl duration-300 block mx-auto mt-4`}
+                >
+                  Crear Cuenta
+                </button>
+              </article>
             </section>
           )}
-
-
-
         </section>
       )}
-
+        
       </section>
   );
 }
