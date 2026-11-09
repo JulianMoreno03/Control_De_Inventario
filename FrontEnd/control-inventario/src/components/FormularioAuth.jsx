@@ -1,10 +1,65 @@
-import { useState } from 'react';
+import { use, useState } from 'react';
 import InputCustom from './InputCustom';
+import { email } from 'astro:schema';
+import { navigate } from 'astro:transitions/client';
 export default function FormularioAuth() {
   // Un interruptor simple: true = Login, false = Sign up
   const [esLogin, setEsLogin] = useState(true);
   //Para pasar al siguiente registro
+  //Por el momento esto ya no se ocupa
   const [nextData, setNextData] = useState(false);
+  //Estado para guardar los valores del formulario
+  const [formData, setFormData] = useState({
+    email:'',
+    password:''
+    });
+
+  //para mostrar mensajes de error o éxito en pantalla
+  const [mensaje, setMensaje] = useState('');
+
+  //Función para actualizar el estado cada vez que escriban algo
+  const handleChange = (e) => {
+    setFormData({
+      ...formData,
+      [e.target.name]: e.target.value
+    });
+  };
+  //se ejecuta al darle al botón "Ingresar"
+  const handleSubmit = async (e) =>{
+    e.preventDefault();
+      setMensaje("");
+
+      try {
+        //aqui hacemos la preticion post a spring boot
+        const respuesta = await fetch('http://localhost:8080/api/usuarios/login',{
+          method: 'POST',
+          headers:{
+            'Content-Type': 'application/json',
+          },
+          body:JSON.stringify(formData), // Convertimos los datos a JSON
+        }
+        );
+
+        if(respuesta.ok){
+          const usuarioLogueado = await respuesta.json();
+          console.log("login existoso, bienvenido ", usuarioLogueado);
+          setMensaje('¡Ingreso exitoso! Redirigiendo...');
+          // Guardas los datos si los necesitas en la sesión
+        localStorage.setItem('usuario', JSON.stringify(usuarioLogueado));
+          //mandar a otra vista aqui
+          navigate('/inventario');
+        }else {
+        // Si el backend responde con 401 u otro error
+        const errorTexto = await respuesta.text();
+        setMensaje(errorTexto || 'Correo o contraseña incorrectos');
+      }
+
+      } catch (error) {
+        console.error('Error de red al conectar con el backend:', error);
+        setMensaje('No se pudo conectar con el servidor.');
+      }
+   } 
+
   return (
     <section className=" p-10 w-full max-w-md h-90 mx-auto  bg-white rounded-3xl shadow-xl  duration-300">
     
@@ -25,24 +80,27 @@ export default function FormularioAuth() {
 
       {esLogin && (
     <section className='p-5'>
+    
+      {/* Formulario listo para mandar los datos  */}
+         <form onSubmit={handleSubmit}>
       <article>
-         
-         <InputCustom type="email" placeholder="Correo"></InputCustom>
-
-         <InputCustom type="password" placeholder="Contraseña"></InputCustom>
-       
+         <InputCustom type="email" name="email" placeholder="Email "value={formData.email} onChange={handleChange} ></InputCustom>
+         <InputCustom type="password" name="password" placeholder="Password" value={formData.password} onChange={handleChange} autoComplete="off"></InputCustom>
       </article>
-
         <article className='flex justify-center items-center mt-5 gap-8'>
           <span className='cursor-pointer text-xs text-cyan-700 underline font-bold'>Recuperar Contraseña</span> 
-          {/* Input para enviar datos*/}
-           <input
+          {/* button para enviar datos*/}
+          <button 
           type="submit"
           placeholder="LOGIN"
-          className="text-white w-40 py-2 rounded-full bg-cyan-600 cursor-pointer font-bold duration-300 hover:bg-cyan-700"
-        />
+          className="text-white w-40 py-2 rounded-full bg-cyan-600 cursor-pointer font-bold duration-300 hover:bg-cyan-700"> 
+          Ingresar
+          </button>
+
         </article>
+         </form>
       </section>
+
       )}
 
       {/* ========================================================== */}
