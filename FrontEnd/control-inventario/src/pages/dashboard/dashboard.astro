@@ -1,0 +1,26 @@
+---
+import '../../styles/global.css';
+import LayoutDashboard from '../../layouts/LayoutDashboard.astro';
+import HeaderDashboard  from '../../components/headerDashboard.astro';
+---
+<!-- Script que valida la sesión en el navegador -->
+<script>
+     import { navigate } from 'astro:transitions/client';
+        // Revisamos si existe el usuario guardado en el localStorage
+        const usuarioGuardado = localStorage.getItem('usuario');
+
+        if (!usuarioGuardado) {
+            // Si no está logueado, lo mandamos al login de inmediato
+            navigate('/'); 
+        }
+
+</script>
+    
+<LayoutDashboard title="Control de Inventario - Dashboard">
+
+  <main class="w-full mx-auto px-4 py-5 ">
+    <HeaderDashboard/>
+  </main>
+
+  
+</LayoutDashboard>

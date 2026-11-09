@@ -1,0 +1,23 @@
+---
+import LayoutDashboard from '../../layouts/LayoutDashboard.astro';
+import HeaderDashboard from '../../components/headerDashboard.astro';
+---
+
+ <!-- Script de seguridad para proteger la ruta -->
+  <script>
+    import { navigate } from 'astro:transitions/client';
+    
+    const usuarioGuardado = localStorage.getItem('usuario');
+    if (!usuarioGuardado) {
+        navigate('/'); 
+    }
+  </script>
+<LayoutDashboard title="Gestión de Inventario">
+  <main class="w-full mx-auto px-6 py-5">
+    <HeaderDashboard />
+    <h1 class="text-2xl font-bold  mt-6">Sección de Inventario</h1>
+    <!-- Aquí irá tu tabla de productos de Spring Boot -->
+  </main>
+
+ 
+</LayoutDashboard>

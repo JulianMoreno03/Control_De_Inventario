@@ -2,6 +2,20 @@
 import '../styles/global.css';
 ---
 
+<!-- Script que valida la sesión en el navegador -->
+<script>
+     import { navigate } from 'astro:transitions/client';
+        
+    const btnLogout = document.getElementById('btn-logout');
+    if (btnLogout) {
+        btnLogout.addEventListener('click', () => {
+            // Borramos la sesión
+            localStorage.removeItem('usuario');
+            // Redirigimos al login
+            navigate('/');
+        });
+    }
+</script>
   <header class="flex justify-between items-center  ">
       <div>
         <h1 class="text-3xl font-extrabold  text-black mb-1">
