@@ -1,0 +1,42 @@
+---
+import '../styles/global.css';
+import LayoutDashboard from '../layouts/LayoutDashboard.astro';
+import HeaderDashboard  from '../components/headerDashboard.astro';
+---
+<!-- Script que valida la sesión en el navegador -->
+<script>
+     import { navigate } from 'astro:transitions/client';
+        // Revisamos si existe el usuario guardado en el localStorage
+        const usuarioGuardado = localStorage.getItem('usuario');
+
+        if (!usuarioGuardado) {
+            // Si no está logueado, lo mandamos al login de inmediato
+            navigate('/'); 
+        }
+
+        
+    const btnLogout = document.getElementById('btn-logout');
+    if (btnLogout) {
+        btnLogout.addEventListener('click', () => {
+            // Borramos la sesión
+            localStorage.removeItem('usuario');
+            // Redirigimos al login
+            navigate('/');
+        });
+    }
+</script>
+    
+<LayoutDashboard title="Control de Inventario - Dashboard">
+
+  <main class="w-full mx-auto px-4 py-5 ">
+    <HeaderDashboard/>
+
+    <!-- Tu tabla de inventario aquí -->
+    <section class="bg-slate-900 border border-slate-800 rounded-xl shadow-xl p-6">
+      <h2 class="text-lg font-semibold text-slate-200 mb-4">Productos Registrados</h2>
+      <p class="text-slate-400 text-sm">Cargando datos desde la API de Spring Boot...</p>
+    </section>
+  </main>
+
+  
+</LayoutDashboard>

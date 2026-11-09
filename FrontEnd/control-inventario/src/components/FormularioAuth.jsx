@@ -47,7 +47,7 @@ export default function FormularioAuth() {
           // Guardas los datos si los necesitas en la sesión
         localStorage.setItem('usuario', JSON.stringify(usuarioLogueado));
           //mandar a otra vista aqui
-          navigate('/inventario');
+          navigate('/dashboard');
         }else {
         // Si el backend responde con 401 u otro error
         const errorTexto = await respuesta.text();
