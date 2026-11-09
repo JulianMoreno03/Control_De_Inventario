@@ -4,6 +4,20 @@ import '../styles/global.css';
 ---
 
 <Layout title="Control de Inventario - Dashboard">
+    
+    <!-- Script que valida la sesión en el navegador -->
+    <script>
+        import { navigate } from 'astro:transitions/client';
+
+        // Revisamos si existe el usuario guardado en el localStorage
+        const usuarioGuardado = localStorage.getItem('usuario');
+
+        if (!usuarioGuardado) {
+            // Si no está logueado, lo mandamos al login de inmediato
+            navigate('/'); 
+        }
+    </script>
+    
   <main class="max-w-6xl mx-auto px-4 py-12">
     <header class="flex justify-between items-center mb-8">
       <div>
@@ -12,10 +26,14 @@ import '../styles/global.css';
         </h1>
         <p class="text-slate-400">Bienvenido al sistema. Aquí está el stock en tiempo real.</p>
       </div>
-      <!-- Botón para cerrar sesión y volver al formulario -->
-      <a href="/" class="bg-red-600/20 border border-red-500/50 text-red-400 hover:bg-red-600/30 px-4 py-2 rounded-lg text-sm transition">
+      
+      <!-- Botón para cerrar sesión -->
+      <button 
+        id="btn-logout"
+        class="bg-red-600/20 border border-red-500/50 text-red-400 hover:bg-red-600/30 px-4 py-2 rounded-lg text-sm transition cursor-pointer"
+      >
         Cerrar Sesión
-      </a>
+      </button>
     </header>
 
     <!-- Tu tabla de inventario aquí -->
@@ -24,4 +42,19 @@ import '../styles/global.css';
       <p class="text-slate-400 text-sm">Cargando datos desde la API de Spring Boot...</p>
     </section>
   </main>
+
+  <!-- Script independiente para el botón de Cerrar Sesión -->
+  <script>
+    import { navigate } from 'astro:transitions/client';
+
+    const btnLogout = document.getElementById('btn-logout');
+    if (btnLogout) {
+        btnLogout.addEventListener('click', () => {
+            // Borramos la sesión
+            localStorage.removeItem('usuario');
+            // Redirigimos al login
+            navigate('/');
+        });
+    }
+  </script>
 </Layout>
