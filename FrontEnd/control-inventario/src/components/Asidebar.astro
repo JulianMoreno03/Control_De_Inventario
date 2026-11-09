@@ -2,25 +2,51 @@
 import '../styles/global.css';
 ---
 
-  <!--barra lateral (Sidebar)-->
-    <aside class="w-60 bg-cyan-600 p-6 hidden md:block">
-        <section>
+<!--barra lateral (Sidebar)-->
+<aside class="w-60 bg-cyan-600 py-6 pl-6 pr-0 hidden md:block min-h-screen relative flex flex-col justify-between">
+    <div>
+        <section class="mb-6 pr-6">
             <h2 class="text-lg font-bold text-white mb-6">Control De Inventario</h2>
-            <img src="" alt="img perfil usuario">
-            <span>Nombre : Usuario</span>
-            <span>Correo : email</span>
-
+            <div class="flex items-center gap-3 text-white">
+                <img src="" alt="img perfil usuario" class="w-10 h-10 rounded-full bg-white/20">
+                <div class="text-xs">
+                    <p>Nombre : Usuario</p>
+                    <p>Correo : email</p>
+                </div>
+            </div>
         </section>
-      <nav class="space-y-2 text-sm text-white">
-        <a href="/dashboard/dashboard" class=" text-xl block py-4 px-3 rounded duration-300 hover:bg-white hover:text-black ">Inventario</a>
-      </nav>
 
-      <nav class="space-y-2 text-sm text-white">
-        <a href="/dashboard/inventario" class=" text-xl block py-4 px-3 rounded duration-300 hover:bg-white hover:text-black ">Dashboard</a>
-      </nav>
-      <nav class="space-y-2 text-sm text-white">
-        <a href="/dashboard" class=" text-xl block py-4 px-3 rounded duration-300 hover:bg-white hover:text-black ">Dashboard</a>
-      </nav>
-      
+        <!-- Tus links del menú con una clase general 'menu-link' -->
+        <nav class="space-y-2 text-sm">
+            <a href="/dashboard/dashboard" class="menu-link text-xl block py-4 px-3 rounded-l-xl transition-all duration-200 text-white hover:bg-cyan-700/50">
+                Inventario
+            </a>
+        </nav>
 
-    </aside>
+        <nav class="space-y-2 text-sm">
+            <a href="/dashboard/inventario" class="menu-link text-xl block py-4 px-3 rounded-l-xl transition-all duration-200 text-white hover:bg-cyan-700/50">
+                Dashboard
+            </a>
+        </nav>
+
+        <nav class="space-y-2 text-sm">
+            <a href="/dashboard" class="menu-link text-xl block py-4 px-3 rounded-l-xl transition-all duration-200 text-white hover:bg-cyan-700/50">
+                Dashboard
+            </a>
+        </nav>
+    </div>
+</aside>
+
+<!-- Un pequeño script que detecta en qué página estamos y le pone el color blanco al botón automáticamente -->
+<script>
+    const urlActual = window.location.pathname;
+    const links = document.querySelectorAll('.menu-link');
+
+    links.forEach(link => {
+        // Si el href del enlace coincide con la página actual, le aplicamos el estilo de pestaña activa
+        if (link.getAttribute('href') === urlActual) {
+            link.classList.remove('text-white', 'hover:bg-cyan-700/50');
+            link.classList.add('bg-white', 'text-black', 'font-semibold', '-mr-px', 'relative', 'z-10');
+        }
+    });
+</script>

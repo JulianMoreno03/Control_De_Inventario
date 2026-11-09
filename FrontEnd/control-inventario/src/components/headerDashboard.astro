@@ -1,5 +1,12 @@
 ---
 import '../styles/global.css';
+
+//este componente va a recibir una propiedad llamada 'title'
+interface Props {
+    title: string;
+}
+
+const { title } = Astro.props;
 ---
 
 <!-- Script que valida la sesión en el navegador -->
@@ -19,7 +26,7 @@ import '../styles/global.css';
   <header class="flex justify-between items-center  ">
       <div>
         <h1 class="text-3xl font-extrabold  text-black mb-1">
-          Bienvenido A Control de Inventario
+          {title}
         </h1>
       </div>
       
