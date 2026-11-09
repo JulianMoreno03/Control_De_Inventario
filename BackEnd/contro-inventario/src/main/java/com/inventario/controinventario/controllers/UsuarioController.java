@@ -1,6 +1,7 @@
 package com.inventario.controinventario.controllers;
 
 import com.inventario.controinventario.models.Usuario;
+import com.inventario.controinventario.models.dto.LoginRequest;
 import com.inventario.controinventario.repository.UsuarioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -24,7 +25,7 @@ public class UsuarioController {
 
     // Metodo para validad el login
     @PostMapping("/login")
-    private ResponseEntity<?> login(@RequestBody Usuario loginRequest){
+    private ResponseEntity<?> login(@RequestBody LoginRequest loginRequest){
         //Buscamos el usuario por su correo
         Usuario usuario = usuarioRepository.findByEmail(loginRequest.getEmail());
 
